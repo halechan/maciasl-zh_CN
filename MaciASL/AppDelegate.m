@@ -40,6 +40,7 @@
     [self observeValueForKeyPath:nil ofObject:nil change:nil context:nil];
     logView.level = NSNormalWindowLevel;
 }
+
 -(BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender{
     if (![NSUserDefaults.standardUserDefaults boolForKey:@"dsdt"]) return true;
     [FSDocumentController.sharedDocumentController newDocumentFromACPI:@"DSDT" saveFirst:false];
@@ -124,7 +125,7 @@
 }
 -(IBAction)exportTableset:(id)sender {
     NSSavePanel *save = [NSSavePanel savePanel];
-    save.prompt = @"Export Tableset";
+    save.prompt = NSLocalizedString(@"Export Tableset", @"");
     save.nameFieldStringValue = NSHost.currentHost.localizedName;
     save.allowedFileTypes = @[kTablesetFileType];
     if ([save runModal] == NSFileHandlingPanelOKButton) {
@@ -149,7 +150,7 @@
     if ([[sender title] isEqualToString:@"Cancel"]) return;
     NSDictionary *tableset = [NSDictionary dictionaryWithContentsOfURL:tableView.representedURL], *tabs = [tableset objectForKey:@"Tables"];
     NSString *prefix = [[tableset objectForKey:@"Hostname"] stringByAppendingString:@" "];
-    if ([[sender title] isEqualToString:@"Open Selected"]) {
+    if ([[sender title] isEqualToString:NSLocalizedString(@"Open Selected", @"")]) {
         sender = [(NSPopUpButton *)tableView.initialFirstResponder titleOfSelectedItem];
         tabs = @{sender:[tabs objectForKey:sender]};
     }
@@ -210,7 +211,7 @@
 }
 #pragma mark NSWindowDelegate
 -(void)windowDidBecomeKey:(NSNotification *)notification{
-    if ([[notification.object title] isEqualToString:@"Preferences"])
+    if ([[notification.object title] isEqualToString:NSLocalizedString(@"Preferences", @"")])
         [self viewPreference:nil];
 }
 @end
