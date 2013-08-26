@@ -147,7 +147,7 @@
 -(IBAction)finishTableset:(id)sender {
     [NSApp stopModal];
     [tableView orderOut:sender];
-    if ([[sender title] isEqualToString:@"Cancel"]) return;
+    if ([[sender title] isEqualToString:NSLocalizedString(@"Cancel", @"")]) return;
     NSDictionary *tableset = [NSDictionary dictionaryWithContentsOfURL:tableView.representedURL], *tabs = [tableset objectForKey:@"Tables"];
     NSString *prefix = [[tableset objectForKey:@"Hostname"] stringByAppendingString:@" "];
     if ([[sender title] isEqualToString:NSLocalizedString(@"Open Selected", @"")]) {

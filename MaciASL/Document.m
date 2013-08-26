@@ -211,13 +211,19 @@
     if (errno) NSBeep();
     else [textView insertText:[NSString stringWithFormat:[number hasPrefix:@"0x"]?@"%lld":@"0x%llX",internal] replacementRange:textView.selectedRange];
 }
+
 -(IBAction)jumpToLine:(id)sender{
     [NSApp beginSheet:jump modalForWindow:[self windowForSheet] modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
+
 -(IBAction)landOnLine:(id)sender{
     [NSApp endSheet:jump];
     [jump orderOut:sender];
-    if ([[sender title] isEqualToString:@"Cancel"]) return;
+    if ([[sender title] isEqualToString:NSLocalizedString(@"Cancel", @"")]) return;
+    
+    NSTextField *field = [jump.contentView viewWithTag:100];
+    self.jumpLine = [field integerValue];
+    
     NSRange range = [self rangeForLine:jumpLine];
     [textView scrollRangeToVisible:range];
     [textView showFindIndicatorForRange:range];
